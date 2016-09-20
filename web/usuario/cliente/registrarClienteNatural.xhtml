@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="nuevoClienteNatural">
+
+                    <h:panelGrid id="nuevoCLienteNatural" title="Registrar Cliente" columns="2" cellpadding="8">
+
+                        <p:outputLabel value="DNI:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.codLocation}"/>
+                        
+                        <p:outputLabel value="Nombre:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.nombre}"/>
+
+                        <p:outputLabel value="Apellido Paterno:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.apellidoPaterno}"/>
+
+                        <p:outputLabel value="Apellido Materno:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.apellidoMaterno}"/>
+
+                        <p:outputLabel value="Email:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.email}"/>
+
+                        <p:outputLabel value="Telefono:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.telefono}"/>
+
+                        <p:outputLabel value="Celular:"/>
+                        <p:inputText value="#{clienteNaturalBean.location.celular}"/>
+                        
+                        <p:outputLabel value="Direccion:"/>
+                        <p:inputText value="#{clienteNaturalBean.direccion.detalleDireccion}"/>
+                        
+                        <p:outputLabel for="departamento" value="Departamento: " />
+                        <p:selectOneMenu id="departamento" value="#{ubigeoBean.departamento.codDepartamento}">
+                            <p:ajax listener="#{ubigeoBean.onDepartamentoChange()}" update="provincia,distrito" />
+                            <f:selectItem itemLabel="Seleccione Departamento" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ubigeoBean.listDepartamento}" var="departamento" itemValue="#{departamento.codDepartamento}" itemLabel="#{departamento.nombreDepartamento}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="provincia" value="Provincia: " />
+                        <p:selectOneMenu id="provincia" value="#{ubigeoBean.provincia.codProvincia}">
+                            <p:ajax listener="#{ubigeoBean.onProvinciaChange()}" update="distrito"/>
+                            <f:selectItem itemLabel="Seleccione Provincia" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ubigeoBean.listProvincia}" var="provincia" itemValue="#{provincia.codProvincia}" itemLabel="#{provincia.nombreProvincia}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="distrito" value="Distrito: " />
+                        <p:selectOneMenu id="distrito" value="#{clienteNaturalBean.distrito.codDistrito}">
+                            <f:selectItem itemLabel="Seleccione Distrito" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ubigeoBean.listDistrito}" var="distrito" itemValue="#{distrito.codDistrito}" itemLabel="#{distrito.nombreDistrito}"/>
+                        </p:selectOneMenu>
+
+                        <h:commandButton value="Registrar" action="#{clienteNaturalBean.crearClienteNatural()}"/>
+                        
+                    </h:panelGrid>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Distrito" table="distrito" catalog="scsv" optimistic-lock="version">
+        <id name="codDistrito" type="int">
+            <column name="cod_distrito" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="provincia" class="modelo.Provincia" fetch="select">
+            <column name="cod_provincia" not-null="true" />
+        </many-to-one>
+        <property name="nombreDistrito" type="string">
+            <column name="nombre_distrito" length="45" not-null="true" />
+        </property>
+        <set name="direccions" table="direccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_distrito" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Direccion" />
+        </set>
+    </class>
+</hibernate-mapping>

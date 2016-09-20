@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Componente" table="componente" catalog="scsv" optimistic-lock="version">
+        <id name="codComponente" type="java.lang.Integer">
+            <column name="cod_componente" />
+            <generator class="identity" />
+        </id>
+        <property name="partNumber" type="string">
+            <column name="part_number" length="45" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="45" not-null="true" />
+        </property>
+        <set name="equipoHasComponentes" table="equipo_has_componente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_componente" not-null="true" />
+            </key>
+            <one-to-many class="modelo.EquipoHasComponente" />
+        </set>
+        <set name="partes" table="parte" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_componente" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Parte" />
+        </set>
+    </class>
+</hibernate-mapping>

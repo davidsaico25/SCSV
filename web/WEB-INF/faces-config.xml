@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <navigation-rule>
+        
+        <navigation-case>
+            <from-outcome>vistaUsuario</from-outcome>
+            <to-view-id>/usuario/adminIndex.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>verTrabajador</from-outcome>
+            <to-view-id>/usuario/trabajador/verTrabajador.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>registrarTrabajador</from-outcome>
+            <to-view-id>/usuario/trabajador/registrarTrabajador.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>verCliente</from-outcome>
+            <to-view-id>/usuario/cliente/verCliente.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>registrarClienteNatural</from-outcome>
+            <to-view-id>/usuario/cliente/registrarClienteNatural.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>registrarServicio</from-outcome>
+            <to-view-id>/usuario/servicio/registrarServicio.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>asignarServicio</from-outcome>
+            <to-view-id>/usuario/servicio/asignarServicio.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>verCertificado</from-outcome>
+            <to-view-id>/usuario/certificado/verCertificado.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>ConsultaIncidencia</from-outcome>
+            <to-view-id>/usuario/servicio/ConsultaIncidencia.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+</faces-config>

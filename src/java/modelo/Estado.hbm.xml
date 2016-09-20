@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Estado" table="estado" catalog="scsv" optimistic-lock="version">
+        <id name="codEstado" type="int">
+            <column name="cod_estado" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreEstado" type="string">
+            <column name="nombre_estado" length="20" not-null="true" />
+        </property>
+        <set name="incidenciaHasEstados" table="incidencia_has_estado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_estado" not-null="true" />
+            </key>
+            <one-to-many class="modelo.IncidenciaHasEstado" />
+        </set>
+    </class>
+</hibernate-mapping>

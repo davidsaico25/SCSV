@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form id="nuevoEmpresa">
+
+                    <h:panelGrid id="nuevoEmpresa" title="Registrar Empresa" columns="2" cellpadding="8">
+
+                        <p:outputLabel value="RUC: "/>
+                        <p:inputText value="#{empresaBean.location.codLocation}"/>
+                        
+                        <p:outputLabel value="Nombre:"/>
+                        <p:inputText value="#{empresaBean.location.nombre}"/>
+
+                        <p:outputLabel value="Email:"/>
+                        <p:inputText value="#{empresaBean.location.email}"/>
+                        
+                        <p:outputLabel value="Pagina Web:"/>
+                        <p:inputText value="#{empresaBean.empresa.paginaWeb}"/>
+                        
+                        <p:outputLabel value="Telefono:"/>
+                        <p:inputText value="#{empresaBean.location.telefono}"/>
+                        
+                        <p:outputLabel value="Direccion:"/>
+                        <p:inputText value="#{empresaBean.direccion.detalleDireccion}"/>
+                        
+                        <p:outputLabel for="departamento" value="Departamento: " />
+                        <p:selectOneMenu id="departamento" value="#{ubigeoBean.departamento.codDepartamento}">
+                            <p:ajax listener="#{ubigeoBean.onDepartamentoChange()}" update="provincia,distrito" />
+                            <f:selectItem itemLabel="Seleccione Departamento" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ubigeoBean.listDepartamento}" var="departamento" itemValue="#{departamento.codDepartamento}" itemLabel="#{departamento.nombreDepartamento}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="provincia" value="Provincia: " />
+                        <p:selectOneMenu id="provincia" value="#{ubigeoBean.provincia.codProvincia}">
+                            <p:ajax listener="#{ubigeoBean.onProvinciaChange()}" update="distrito"/>
+                            <f:selectItem itemLabel="Seleccione Provincia" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ubigeoBean.listProvincia}" var="provincia" itemValue="#{provincia.codProvincia}" itemLabel="#{provincia.nombreProvincia}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="distrito" value="Distrito: " />
+                        <p:selectOneMenu id="distrito" value="#{empresaBean.distrito.codDistrito}">
+                            <f:selectItem itemLabel="Seleccione Distrito" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ubigeoBean.listDistrito}" var="distrito" itemValue="#{distrito.codDistrito}" itemLabel="#{distrito.nombreDistrito}"/>
+                        </p:selectOneMenu>
+
+                        <h:commandButton value="Registrar" action="#{empresaBean.crearEmpresa()}"/>
+                        
+                    </h:panelGrid>
+
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

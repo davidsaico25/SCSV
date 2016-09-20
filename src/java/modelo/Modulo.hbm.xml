@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Modulo" table="modulo" catalog="scsv" optimistic-lock="version">
+        <id name="codModulo" type="int">
+            <column name="cod_modulo" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreModulo" type="string">
+            <column name="nombre_modulo" length="45" not-null="true" />
+        </property>
+        <set name="usuarioHasModulos" table="usuario_has_modulo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="modulo_cod_modulo" not-null="true" />
+            </key>
+            <one-to-many class="modelo.UsuarioHasModulo" />
+        </set>
+    </class>
+</hibernate-mapping>

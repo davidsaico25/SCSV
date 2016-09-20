@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.DetalleFactura" table="detalle_factura" catalog="scsv" optimistic-lock="version">
+        <composite-id name="id" class="modelo.DetalleFacturaId">
+            <key-property name="codFactura" type="int">
+                <column name="cod_factura" />
+            </key-property>
+            <key-property name="numeroSerie" type="string">
+                <column name="numero_serie" length="100" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="equipo" class="modelo.Equipo" update="false" insert="false" fetch="select">
+            <column name="numero_serie" length="100" not-null="true" />
+        </many-to-one>
+        <many-to-one name="factura" class="modelo.Factura" update="false" insert="false" fetch="select">
+            <column name="cod_factura" not-null="true" />
+        </many-to-one>
+        <many-to-one name="garantia" class="modelo.Garantia" fetch="select">
+            <column name="cod_garantia" />
+        </many-to-one>
+        <property name="fechaFinGarantia" type="date">
+            <column name="fecha_fin_garantia" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

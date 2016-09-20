@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Nota" table="nota" catalog="scsv" optimistic-lock="version">
+        <id name="codNota" type="java.lang.Integer">
+            <column name="cod_nota" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="incidencia" class="modelo.Incidencia" fetch="select">
+            <column name="cod_incidencia" not-null="true" />
+        </many-to-one>
+        <property name="numeroSecuencia" type="int">
+            <column name="numero_secuencia" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+        <property name="time" type="time">
+            <column name="time" length="8" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="200" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

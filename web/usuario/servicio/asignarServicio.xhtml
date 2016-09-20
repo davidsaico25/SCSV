@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form">
+
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <p:dataTable id="tableListIncidenciaAsignar" var="incidencia" value="#{incidenciaAsignarBean.listIncidencia}"
+                                 selectionMode="single" selection="#{incidenciaAsignarBean.selectedIncidencia}" rowKey="#{incidencia.codIncidencia}"
+                                 emptyMessage="Ninguna incidencia encontrada" filteredValue="#{incidenciaAsignarBean.listFiltradoIncidencia}"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            Incidencias por Asignar
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" listener="#{incidenciaAsignarBean.onRowFromTableListIncidenciaSelect}" update=":form:nombreCliente,:form:apellidoPaternoCliente,:form:apellidoMaternoCliente,:form:direccionAtencion,:form:tableListTrabajador,:form:nombreTrabajador,:form:apellidoPaternoTrabajador,:form:apellidoMaternoTrabajador"/>
+                        <p:ajax event="rowUnselect" listener="#{incidenciaAsignarBean.onRowFromTableListIncidenciaUnselect}" update=":form:nombreCliente,:form:apellidoPaternoCliente,:form:apellidoMaternoCliente,:form:direccionAtencion,:form:tableListTrabajador,:form:nombreTrabajador,:form:apellidoPaternoTrabajador,:form:apellidoMaternoTrabajador" />
+
+                        <p:column filterBy="#{incidencia.srms}" headerText="SRMS">
+                            <h:outputText value="#{incidencia.srms}" />
+                        </p:column>
+
+                        <p:column filterBy="#{incidencia.dps}" headerText="DPS">
+                            <h:outputText value="#{incidencia.dps}" />
+                        </p:column>
+
+                        <p:column headerText="NumeroSerie">
+                            <h:outputText value="#{incidencia.equipo.numeroSerie}" />
+                        </p:column>
+
+                        <p:column headerText="Modelo">
+                            <h:outputText value="#{incidencia.equipo.modelo.nombreModelo}" />
+                        </p:column>
+
+                        <p:column headerText="TipoIncidencia">
+                            <h:outputText value="#{incidencia.tipoIncidencia.abreviacionTipoIncidencia}" />
+                        </p:column>
+
+                        <p:column headerText="Estado">
+                            <h:outputText value="#{incidencia.estado}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha de Creacion">
+                            <h:outputText value="#{incidencia.fechaRegistro}" />
+                        </p:column>
+
+                        <p:column headerText="Departamento">
+                            <h:outputText value="#{incidencia.direccion.distrito.provincia.departamento.nombreDepartamento}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:spacer height="25"/>
+
+                    <h:panelGrid columns="1" cellpadding="8">
+
+                        <h:panelGrid columns="4" cellpadding="8">
+
+                            <p:outputLabel value="Nombre Cliente: "/>
+                            <p:outputLabel id="nombreCliente" value="#{incidenciaAsignarBean.locationCliente.nombre}"/>
+
+                            <p:outputLabel id="apellidoPaternoCliente" value="#{incidenciaAsignarBean.locationCliente.apellidoPaterno}"/>
+
+                            <p:outputLabel id="apellidoMaternoCliente" value="#{incidenciaAsignarBean.locationCliente.apellidoMaterno}"/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" cellpadding="8">
+
+                            <p:outputLabel value="Direccion Atencion: "/>
+                            <p:outputLabel id="direccionAtencion" value="#{incidenciaAsignarBean.selectedIncidencia.direccion.detalleDireccion}"/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="4" cellpadding="8">
+
+                            <p:outputLabel value="Nombre Trabajador: "/>
+                            <h:outputLabel id="nombreTrabajador" value="#{incidenciaAsignarBean.locationTrabajador.nombre}"/>
+
+                            <h:outputLabel id="apellidoPaternoTrabajador" value="#{incidenciaAsignarBean.locationTrabajador.apellidoPaterno}"/>
+
+                            <h:outputLabel id="apellidoMaternoTrabajador" value="#{incidenciaAsignarBean.locationTrabajador.apellidoMaterno}"/>
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Asignar Trabajador" action="#{incidenciaAsignarBean.asignarTrabajador()}" update="tableListIncidenciaAsignar"/>
+
+                    </h:panelGrid>
+
+                    <p:spacer height="25"/>
+
+                    <p:dataTable id="tableListTrabajador" var="trabajador" value="#{incidenciaAsignarBean.listTrabajador}"
+                                 selectionMode="single" selection="#{incidenciaAsignarBean.selectedTrabajador}" rowKey="#{trabajador.codTrabajador}"
+                                 emptyMessage="Ningun trabajador en el departamento" filteredValue="#{incidenciaAsignarBean.listFiltradoTrabajador}"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            Trabajadores Disponibles
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" listener="#{incidenciaAsignarBean.onRowFromTableListTrabajadorSelect}" update=":form:msgs,:form:nombreTrabajador,:form:apellidoPaternoTrabajador,:form:apellidoMaternoTrabajador"/>
+                        <p:ajax event="rowUnselect" listener="#{incidenciaAsignarBean.onRowFromTableListTrabajadorUnselect}" update=":form:msgs,:form:nombreTrabajador,:form:apellidoPaternoTrabajador,:form:apellidoMaternoTrabajador" />
+
+                        <p:column filterBy="#{trabajador.usuario.username}" headerText="Usuario: ">
+                            <h:outputText value="#{trabajador.usuario.username}" />
+                        </p:column>
+
+                        <p:column filterBy="#{trabajador.location.nombre}" headerText="Nombre: ">
+                            <h:outputText value="#{trabajador.location.nombre}" />
+                        </p:column>
+
+                        <p:column filterBy="#{trabajador.location.apellidoPaterno}" headerText="Apellido Paterno: ">
+                            <h:outputText value="#{trabajador.location.apellidoPaterno}" />
+                        </p:column>
+
+                        <p:column headerText="Apellido Materno: ">
+                            <h:outputText value="#{trabajador.location.apellidoMaterno}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

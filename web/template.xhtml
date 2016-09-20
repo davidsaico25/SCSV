@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+
+                <h:form> 
+
+                    <p:growl id="messages"/>
+
+                    <p:menubar>
+
+                        <p:menuitem value="Inicio" icon="ui-icon-document"/>
+                        <p:menuitem value="Nosotros"/>
+                        <p:menuitem value="Servicios"/>
+                        <p:menuitem value="Portafolio"/>
+                        <p:menuitem value="Contacto"/>
+
+                        <f:facet name="options">
+                            <p:commandButton value="Iniciar Sesion" update=":formSession:panelGridSession" onclick="PF('dialogSession').show();"/>
+                        </f:facet>
+
+                    </p:menubar>
+
+                </h:form>
+
+                <h:form id="formSession">
+
+                    <p:dialog id="login" header="Login" widgetVar="dialogSession" showEffect="explode" hideEffect="explode" modal="true" resizable="false" style="width: 60%;height:40%;">
+
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                        <h:panelGrid id="panelGridSession" columns="3" cellpadding="5">
+
+                            <h:outputLabel for="username" value="Usuario: "/>
+                            <p:inputText id="username" value="#{loginBean.usuario.username}" label="Username" />
+                            <p:message for="username" display="tooltip" />
+
+                            <h:outputLabel for="password" value="Contrasena: "/>
+                            <p:password id="password" value="#{loginBean.usuario.password}" label="Password" />
+                            <p:message for="password" display="tooltip" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Ingresar" update="messages" action="#{loginBean.login()}" icon="ui-icon-check"/>
+                            </f:facet>
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+
+                </h:form>
+
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">Bottom</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

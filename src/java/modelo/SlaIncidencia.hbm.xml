@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.SlaIncidencia" table="sla_incidencia" catalog="scsv" optimistic-lock="version">
+        <id name="codSlaIncidencia" type="java.lang.Integer">
+            <column name="cod_sla_incidencia" />
+            <generator class="identity" />
+        </id>
+        <property name="abreviaturaSlaIncidencia" type="string">
+            <column name="abreviatura_sla_incidencia" length="45" not-null="true" />
+        </property>
+        <property name="descripcionSlaIncidencia" type="string">
+            <column name="descripcion_sla_incidencia" length="45" not-null="true" />
+        </property>
+        <set name="incidencias" table="incidencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sla_incidencia" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Incidencia" />
+        </set>
+    </class>
+</hibernate-mapping>

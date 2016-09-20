@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Location" table="location" catalog="scsv" optimistic-lock="version">
+        <id name="codLocation" type="string">
+            <column name="cod_location" length="11" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="apellidoPaterno" type="string">
+            <column name="apellido_paterno" length="45" />
+        </property>
+        <property name="apellidoMaterno" type="string">
+            <column name="apellido_materno" length="45" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="10" />
+        </property>
+        <property name="celular" type="string">
+            <column name="celular" length="15" />
+        </property>
+        <set name="clienteNaturals" table="cliente_natural" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_location" length="11" not-null="true" />
+            </key>
+            <one-to-many class="modelo.ClienteNatural" />
+        </set>
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_location" length="11" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Factura" />
+        </set>
+        <set name="trabajadors" table="trabajador" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_location" length="11" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Trabajador" />
+        </set>
+        <set name="empresas" table="empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_location" length="11" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Empresa" />
+        </set>
+    </class>
+</hibernate-mapping>

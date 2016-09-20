@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.IncidenciaHasEstado" table="incidencia_has_estado" catalog="scsv" optimistic-lock="version">
+        <composite-id name="id" class="modelo.IncidenciaHasEstadoId">
+            <key-property name="codIncidencia" type="int">
+                <column name="cod_incidencia" />
+            </key-property>
+            <key-property name="codEstado" type="int">
+                <column name="cod_estado" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="estado" class="modelo.Estado" update="false" insert="false" fetch="select">
+            <column name="cod_estado" not-null="true" />
+        </many-to-one>
+        <many-to-one name="incidencia" class="modelo.Incidencia" update="false" insert="false" fetch="select">
+            <column name="cod_incidencia" not-null="true" />
+        </many-to-one>
+        <property name="fechaActualizacionEstado" type="date">
+            <column name="fecha_actualizacion_estado" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

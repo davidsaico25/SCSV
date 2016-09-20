@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Trabajador" table="trabajador" catalog="scsv" optimistic-lock="version">
+        <id name="codTrabajador" type="java.lang.Integer">
+            <column name="cod_trabajador" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="location" class="modelo.Location" fetch="select">
+            <column name="cod_location" length="11" not-null="true" />
+        </many-to-one>
+        <many-to-one name="perfil" class="modelo.Perfil" fetch="select">
+            <column name="perfil_cod_perfil" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sucursal" class="modelo.Sucursal" fetch="select">
+            <column name="cod_sucursal" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="modelo.Usuario" fetch="select">
+            <column name="cod_usuario" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="string">
+            <column name="estado" length="20" not-null="true" />
+        </property>
+        <set name="incidencias" table="incidencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_trabajador" />
+            </key>
+            <one-to-many class="modelo.Incidencia" />
+        </set>
+        <set name="trabajadorHasCertificados" table="trabajador_has_certificado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_trabajador" not-null="true" />
+            </key>
+            <one-to-many class="modelo.TrabajadorHasCertificado" />
+        </set>
+    </class>
+</hibernate-mapping>

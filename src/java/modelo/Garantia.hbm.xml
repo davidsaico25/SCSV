@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Garantia" table="garantia" catalog="scsv" optimistic-lock="version">
+        <id name="codGarantia" type="java.lang.Integer">
+            <column name="cod_garantia" />
+            <generator class="identity" />
+        </id>
+        <property name="tiempoGarantia" type="int">
+            <column name="tiempo_garantia" not-null="true" />
+        </property>
+        <property name="unidadTiempoGarantia" type="string">
+            <column name="unidad_tiempo_garantia" length="5" not-null="true" />
+        </property>
+        <set name="detalleFacturas" table="detalle_factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_garantia" />
+            </key>
+            <one-to-many class="modelo.DetalleFactura" />
+        </set>
+    </class>
+</hibernate-mapping>

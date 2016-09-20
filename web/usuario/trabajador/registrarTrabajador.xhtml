@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form id="nuevoTrabajador">
+
+                    <h:panelGrid id="nTrabajador" columns="2" cellpadding="8">
+
+                        <h:outputLabel value="DNI: "/>
+                        <p:inputText value="#{trabajadorBean.location.codLocation}"/>
+                        
+                        <h:outputLabel value="Nombre: "/>
+                        <p:inputText value="#{trabajadorBean.location.nombre}"/>
+                        
+                        <h:outputLabel value="Apellido Paterno: "/>
+                        <p:inputText value="#{trabajadorBean.location.apellidoPaterno}"/>
+
+                        <h:outputLabel value="Apellido Materno: "/>
+                        <p:inputText value="#{trabajadorBean.location.apellidoMaterno}"/>
+
+                        <h:outputLabel value="Email: "/>
+                        <p:inputText value="#{trabajadorBean.location.email}"/>
+                        
+                        <h:outputLabel value="Telefono: "/>
+                        <p:inputText value="#{trabajadorBean.location.telefono}"/>
+                        
+                        <h:outputLabel value="Celular: "/>
+                        <p:inputText value="#{trabajadorBean.location.celular}"/>
+
+                        <p:outputLabel value="Perfil: " />
+                        <p:selectOneMenu value="#{trabajadorBean.perfil.codPerfil}" effect="fold">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                            <f:selectItems value="#{trabajadorBean.listPerfil}" var="perfil" itemLabel="#{perfil.nombrePerfil}" itemValue="#{perfil.codPerfil}" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Sucursal: " />
+                        <p:selectOneMenu value="#{trabajadorBean.sucursal.codSucursal}" effect="fold">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                            <f:selectItems value="#{trabajadorBean.listSucursal}" var="sucursal" itemLabel="#{sucursal.telefono}" itemValue="#{sucursal.codSucursal}" />
+                        </p:selectOneMenu>
+
+                        <h:commandButton value="Registrar" action="#{trabajadorBean.crearTrabajador()}"/>
+
+                    </h:panelGrid>
+
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

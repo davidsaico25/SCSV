@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.ParteDevuelta" table="parte_devuelta" catalog="scsv" optimistic-lock="version">
+        <id name="codParteDevuelta" type="java.lang.Integer">
+            <column name="cod_parte_devuelta" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="incidencia" class="modelo.Incidencia" fetch="select">
+            <column name="cod_incidencia" not-null="true" />
+        </many-to-one>
+        <property name="partNumber" type="string">
+            <column name="part_number" length="45" not-null="true" />
+        </property>
+        <property name="nombreParte" type="string">
+            <column name="nombre_parte" length="45" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="45" not-null="true" />
+        </property>
+        <property name="dps" type="string">
+            <column name="dps" length="9" not-null="true" />
+        </property>
+        <property name="fechaRetorno" type="date">
+            <column name="fecha_retorno" length="10" />
+        </property>
+        <set name="grDevolucions" table="gr_devolucion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_parte_devuelta" not-null="true" />
+            </key>
+            <one-to-many class="modelo.GrDevolucion" />
+        </set>
+    </class>
+</hibernate-mapping>

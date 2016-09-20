@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="scsv"/>
+  <table-filter match-name="sla_incidencia"/>
+  <table-filter match-name="direccion"/>
+  <table-filter match-name="perfil"/>
+  <table-filter match-name="location"/>
+  <table-filter match-name="gr_envio"/>
+  <table-filter match-name="parte"/>
+  <table-filter match-name="empresa"/>
+  <table-filter match-name="provincia"/>
+  <table-filter match-name="departamento"/>
+  <table-filter match-name="equipo_has_componente"/>
+  <table-filter match-name="certificado_has_modelo"/>
+  <table-filter match-name="incidencia_has_estado"/>
+  <table-filter match-name="trabajador"/>
+  <table-filter match-name="nota"/>
+  <table-filter match-name="modelo"/>
+  <table-filter match-name="garantia"/>
+  <table-filter match-name="modulo"/>
+  <table-filter match-name="factura"/>
+  <table-filter match-name="usuario_has_modulo"/>
+  <table-filter match-name="sucursal"/>
+  <table-filter match-name="tipo_incidencia"/>
+  <table-filter match-name="nrp"/>
+  <table-filter match-name="trabajador_has_certificado"/>
+  <table-filter match-name="parte_devuelta"/>
+  <table-filter match-name="gr_devolucion"/>
+  <table-filter match-name="componente"/>
+  <table-filter match-name="equipo"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="detalle_factura"/>
+  <table-filter match-name="distrito"/>
+  <table-filter match-name="certificado"/>
+  <table-filter match-name="cliente_natural"/>
+  <table-filter match-name="estado"/>
+  <table-filter match-name="parte_enviada"/>
+  <table-filter match-name="incidencia"/>
+  <table-filter match-name="marca"/>
+</hibernate-reverse-engineering>

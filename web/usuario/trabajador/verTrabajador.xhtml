@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form>
+
+                    <p:dataTable var="trabajador" value="#{trabajadorBean.listTrabajador}" widgetVar="trabajadorTable"
+                                 emptyMessage="Ningun trabajador encontrado con el criterio dado" filteredValue="#{trabajadorBean.listFiltradoTrabajador}"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <p:column filterBy="#{trabajador.location.nombre}" headerText="Nombre" filterMatchMode="contains">
+                            <h:outputText value="#{trabajador.location.nombre}" />
+                        </p:column>
+
+                        <p:column filterBy="#{trabajador.location.apellidoPaterno}" headerText="Apellido Paterno" filterMatchMode="contains">
+                            <h:outputText value="#{trabajador.location.apellidoPaterno}" />
+                        </p:column>
+
+                        <p:column headerText="Apellido Materno">
+                            <h:outputText value="#{trabajador.location.apellidoMaterno}" />
+                        </p:column>
+
+                        <p:column headerText="Email">
+                            <h:outputText value="#{trabajador.location.email}"/>
+                        </p:column>
+
+                        <p:column headerText="Celular">
+                            <h:outputText value="#{trabajador.location.celular}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{trabajador.perfil.nombrePerfil}" headerText="Perfil" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('trabajadorTable').filter()" effect="fold">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{trabajadorBean.listPerfil}" var="perfil" itemValue="#{perfil.nombrePerfil}" itemLabel="#{perfil.nombrePerfil}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{trabajador.perfil.nombrePerfil}" />
+                        </p:column>
+
+                        <p:column filterBy="#{trabajador.estado}" headerText="Estado" filterMatchMode="equals">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('trabajadorTable').filter()">
+                                    <f:selectItem itemLabel="All" itemValue="" />
+                                    <f:selectItem itemLabel="Activo" itemValue="activo" />
+                                    <f:selectItem itemLabel="Inactivo" itemValue="inactivo" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{trabajador.estado}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form">
+
+                    <p:wizard flowListener="#{incidenciaRegistroBean.onFlowProcess}">
+
+                        <p:tab id="factura" title="Factura">
+
+                            <p:panel header="Factura">
+
+                                <h:panelGrid columns="4" cellpadding="8">
+
+                                    <p:outputLabel value="Factura: "/>
+                                    <p:inputText value="#{incidenciaRegistroBean.factura.codFactura}" required="true"/>
+
+                                    <p:commandButton value="Consultar" action="#{incidenciaRegistroBean.consultarFactura}" update="existenciaFactura,fechaFactura,costoTotal,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,tableDetalleFactura"/>
+
+                                    <p:outputLabel id="existenciaFactura" value="#{incidenciaRegistroBean.factura == null ? 'No existe factura' : null}"/>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="Fecha Compra: "/>
+                                    <p:outputLabel id="fechaFactura" value="#{incidenciaRegistroBean.factura.fechaCompra}"/>
+
+                                    <p:outputLabel value="Costo Total: "/>
+                                    <p:outputLabel id="costoTotal" value="#{incidenciaRegistroBean.factura.costoTotal}"/>
+                                    
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="4" cellpadding="8">
+
+                                    <p:outputLabel value="Nombre: "/>
+                                    <p:outputLabel id="nombreCliente" value="#{incidenciaRegistroBean.location.nombre}"/>
+
+                                    <p:outputLabel id="apellidoPaternoCliente" value="#{incidenciaRegistroBean.location.apellidoPaterno}"/>
+
+                                    <p:outputLabel id="apellidoMaternoCliente" value="#{incidenciaRegistroBean.location.apellidoMaterno}"/>
+
+                                </h:panelGrid>
+
+                                <p:growl id="msgs" showDetail="true"/>
+
+                                <p:dataTable id="tableDetalleFactura" var="detalleFactura" value="#{incidenciaRegistroBean.listDetalleFactura}"
+                                             selectionMode="single" selection="#{incidenciaRegistroBean.selectedDetalleFactura}" rowKey="#{detalleFactura.equipo.numeroSerie}"
+                                             emptyMessage="Ningun equipo encontrado" filteredValue="#{incidenciaRegistroBean.listFiltradoDetalleFactura}"
+                                             rowStyleClass="#{detalleFactura.fechaFinGarantia gt incidenciaRegistroBean.date ? 'estaEnGarantia' : 'noEstaEnGarantia'}">
+
+                                    <f:facet name="header">
+                                        Select Events
+                                    </f:facet>
+
+                                    <p:ajax event="rowSelect" listener="#{incidenciaRegistroBean.onRowFromTableDetalleFacturaSelect}" update=":form:msgs" />
+                                    <p:ajax event="rowUnselect" listener="#{incidenciaRegistroBean.onRowFromTableDetalleFacturaUnselect}" update=":form:msgs" />
+
+                                    <p:column class="numeroSerie" filterBy="#{detalleFactura.equipo.numeroSerie}" headerText="Numero Serie">
+                                        <h:outputText value="#{detalleFactura.equipo.numeroSerie}" />
+                                    </p:column>
+
+                                    <p:column headerText="Marca">
+                                        <h:outputText value="#{detalleFactura.equipo.modelo.marca.nombreMarca}" />
+                                    </p:column>
+
+                                    <p:column headerText="Modelo">
+                                        <h:outputText value="#{detalleFactura.equipo.modelo.nombreModelo}" />
+                                    </p:column>
+
+                                    <p:column headerText="Costo">
+                                        <h:outputText value="#{detalleFactura.equipo.modelo.precio}" />
+                                    </p:column>
+
+                                    <p:column headerText="Garantia">
+                                        <h:outputText value="#{detalleFactura.garantia.tiempoGarantia}"/>
+                                        <h:outputText value="#{detalleFactura.garantia.unidadTiempoGarantia}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Fecha vencimiento garantia">
+                                        <h:outputText value="#{detalleFactura.fechaFinGarantia}" />
+                                    </p:column>
+
+                                </p:dataTable>
+
+                            </p:panel>
+
+                        </p:tab>
+
+                        <p:tab id="servicio" title="Servicio">
+
+                            <p:panel header="Registrar Servicio">
+
+                                <h:panelGrid columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="SMRS: "/>
+                                    <p:inputText value="#{incidenciaRegistroBean.incidencia.srms}"/>
+
+                                    <p:outputLabel value="DPS: "/>
+                                    <p:inputText value="#{incidenciaRegistroBean.incidencia.dps}"/>
+
+                                    <p:outputLabel value="Nombre Incidencia: "/>
+                                    <p:inputText value="#{incidenciaRegistroBean.incidencia.nombreIncidencia}"/>
+
+                                    <p:outputLabel for="prioridad" value="Prioridad:" />
+                                    <p:selectOneMenu id="prioridad" value="#{incidenciaRegistroBean.incidencia.prioridad}" effect="fold" style="width:125px">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                        <f:selectItem itemLabel="Alta" itemValue="Alta" />
+                                        <f:selectItem itemLabel="Media" itemValue="Media" />
+                                        <f:selectItem itemLabel="Baja" itemValue="Baja" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="Fecha Compra: "/>
+                                    <p:outputLabel value="#{incidenciaRegistroBean.factura.fechaCompra}"/>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="4" cellpadding="8">
+
+                                    <p:outputLabel value="Nombre Cliente: "/>
+                                    <p:outputLabel value="#{incidenciaRegistroBean.location.nombre}"/>
+
+                                    <p:outputLabel value="#{incidenciaRegistroBean.location.apellidoPaterno}"/>
+
+                                    <p:outputLabel value="#{incidenciaRegistroBean.location.apellidoMaterno}"/>
+
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="2" cellpadding="8">
+                                    
+                                    <p:outputLabel value="Direccion: "/>
+                                    <p:outputLabel id="direccion1" value="#{incidenciaRegistroBean.direccion.detalleDireccion}"/>
+                                    
+                                </h:panelGrid>
+
+                                <h:panelGrid title="Equipo" columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="Numero serie: "/>
+                                    <p:outputLabel value="#{incidenciaRegistroBean.equipo.numeroSerie}"/>
+
+                                    <p:outputLabel value="Marca: "/>
+                                    <p:outputLabel value="#{incidenciaRegistroBean.equipo.modelo.marca.nombreMarca}"/>
+
+                                    <p:outputLabel value="Modelo: "/>
+                                    <p:outputLabel value="#{incidenciaRegistroBean.equipo.modelo.nombreModelo}"/>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="Tipo incidencia: " />
+                                    <p:selectOneMenu value="#{incidenciaRegistroBean.tipoIncidencia.codTipoIncidencia}" effect="fold">
+                                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                                        <f:selectItems value="#{incidenciaRegistroBean.listTipoIncidencia}" var="tipoIncidencia" itemLabel="#{tipoIncidencia.abreviacionTipoIncidencia}" itemValue="#{tipoIncidencia.codTipoIncidencia}" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="SLA incidencia: " />
+                                    <p:selectOneMenu value="#{incidenciaRegistroBean.slaIncidencia.codSlaIncidencia}" effect="fold">
+                                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                                        <f:selectItems value="#{incidenciaRegistroBean.listSlaIncidencia}" var="slaincidencia" itemLabel="#{slaincidencia.abreviaturaSlaIncidencia}" itemValue="#{slaincidencia.codSlaIncidencia}" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+
+                                <p:dataTable id="tableParte" var="parte" value="#{incidenciaRegistroBean.listParte}"
+                                             selection="#{incidenciaRegistroBean.listSelectedParte}" rowKey="#{parte.codParte}"
+                                             style="margin-bottom:0">
+
+                                    <f:facet name="header">
+                                        LISTA DE PARTES
+                                    </f:facet>
+
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                                    <p:column headerText="Numero Serie Parte: ">
+                                        <h:outputText value="#{parte.numeroSerie}" />
+                                    </p:column>
+
+                                    <p:column headerText="Componente: ">
+                                        <h:outputText value="#{parte.componente.nombre}" />
+                                    </p:column>
+
+                                </p:dataTable>
+
+                                <h:panelGrid columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="Descripcion: "/>
+                                    <p:inputTextarea value="#{incidenciaRegistroBean.incidencia.descripcion}" rows="5" cols="50"/>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="8">
+
+                                    <p:outputLabel value="Nombre Contacto: "/>
+                                    <p:inputText value="#{incidenciaRegistroBean.incidencia.nombreContacto}"/>
+
+                                    <p:outputLabel value="Direccion de Atencion: "/>
+                                    <p:inputText value="#{incidenciaRegistroBean.direccionAtencion.detalleDireccion}"/>
+
+                                    <p:outputLabel for="departamento" value="Departamento: " />
+                                    <p:selectOneMenu id="departamento" value="#{ubigeoBean.departamento.codDepartamento}">
+                                        <p:ajax listener="#{ubigeoBean.onDepartamentoChange()}" update="provincia,distrito" />
+                                        <f:selectItem itemLabel="Seleccione Departamento" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{ubigeoBean.listDepartamento}" var="departamento" itemValue="#{departamento.codDepartamento}" itemLabel="#{departamento.nombreDepartamento}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="provincia" value="Provincia: " />
+                                    <p:selectOneMenu id="provincia" value="#{ubigeoBean.provincia.codProvincia}">
+                                        <p:ajax listener="#{ubigeoBean.onProvinciaChange()}" update="distrito"/>
+                                        <f:selectItem itemLabel="Seleccione Provincia" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{ubigeoBean.listProvincia}" var="provincia" itemValue="#{provincia.codProvincia}" itemLabel="#{provincia.nombreProvincia}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="distrito" value="Distrito: " />
+                                    <p:selectOneMenu id="distrito" value="#{incidenciaRegistroBean.distritoAtencion.codDistrito}">
+                                        <f:selectItem itemLabel="Seleccione Distrito" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{ubigeoBean.listDistrito}" var="distrito" itemValue="#{distrito.codDistrito}" itemLabel="#{distrito.nombreDistrito}"/>
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+                                
+                                <p:commandButton value="Registrar" action="#{incidenciaRegistroBean.crearIncidencia}"/>
+
+                            </p:panel>
+
+                        </p:tab>
+
+                    </p:wizard>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

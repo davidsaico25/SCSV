@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Incidencia" table="incidencia" catalog="scsv" optimistic-lock="version">
+        <id name="codIncidencia" type="java.lang.Integer">
+            <column name="cod_incidencia" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="direccion" class="modelo.Direccion" fetch="select">
+            <column name="cod_direccion" />
+        </many-to-one>
+        <many-to-one name="equipo" class="modelo.Equipo" fetch="select">
+            <column name="numero_serie" length="100" not-null="true" />
+        </many-to-one>
+        <many-to-one name="slaIncidencia" class="modelo.SlaIncidencia" fetch="select">
+            <column name="cod_sla_incidencia" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoIncidencia" class="modelo.TipoIncidencia" fetch="select">
+            <column name="cod_tipo_incidencia" not-null="true" />
+        </many-to-one>
+        <many-to-one name="trabajador" class="modelo.Trabajador" fetch="select">
+            <column name="cod_trabajador" />
+        </many-to-one>
+        <property name="srms" type="string">
+            <column name="srms" length="8" not-null="true" />
+        </property>
+        <property name="dps" type="string">
+            <column name="dps" length="9" not-null="true" />
+        </property>
+        <property name="nombreIncidencia" type="string">
+            <column name="nombre_incidencia" length="45" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="date">
+            <column name="fecha_registro" length="10" not-null="true" />
+        </property>
+        <property name="fechaAsignacion" type="date">
+            <column name="fecha_asignacion" length="10" />
+        </property>
+        <property name="fechaCierre" type="date">
+            <column name="fecha_cierre" length="10" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="200" not-null="true" />
+        </property>
+        <property name="nombreContacto" type="string">
+            <column name="nombre_contacto" length="45" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="50" not-null="true" />
+        </property>
+        <property name="prioridad" type="string">
+            <column name="prioridad" length="45" not-null="true" />
+        </property>
+        <set name="parteEnviadas" table="parte_enviada" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_incidencia" not-null="true" />
+            </key>
+            <one-to-many class="modelo.ParteEnviada" />
+        </set>
+        <set name="parteDevueltas" table="parte_devuelta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_incidencia" not-null="true" />
+            </key>
+            <one-to-many class="modelo.ParteDevuelta" />
+        </set>
+        <set name="notas" table="nota" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_incidencia" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Nota" />
+        </set>
+        <set name="incidenciaHasEstados" table="incidencia_has_estado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_incidencia" not-null="true" />
+            </key>
+            <one-to-many class="modelo.IncidenciaHasEstado" />
+        </set>
+    </class>
+</hibernate-mapping>

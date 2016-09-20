@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Modelo" table="modelo" catalog="scsv" optimistic-lock="version">
+        <id name="codModelo" type="java.lang.Integer">
+            <column name="cod_modelo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="marca" class="modelo.Marca" fetch="select">
+            <column name="cod_marca" not-null="true" />
+        </many-to-one>
+        <property name="nombreModelo" type="string">
+            <column name="nombre_modelo" length="100" not-null="true" />
+        </property>
+        <property name="precio" type="double">
+            <column name="precio" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="certificados" table="certificado_has_modelo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_modelo" not-null="true" />
+            </key>
+            <many-to-many entity-name="modelo.Certificado">
+                <column name="cod_certificado" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="equipos" table="equipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_modelo" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Equipo" />
+        </set>
+    </class>
+</hibernate-mapping>

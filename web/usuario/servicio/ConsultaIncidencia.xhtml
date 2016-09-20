@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="formConsulta">
+            <p:outputLabel value="SRMS"/>
+            <p:inputText value="#{consultarIncidenciaBean.inc.srms}" />
+
+            <p:outputLabel value="DPS"/>
+            <p:inputText value="#{consultarIncidenciaBean.inc.dps}" />
+            <br/>
+            <p:commandButton actionListener="#{consultarIncidenciaBean.ConsultarIncidenciaS}" value="Consultar" update="Srms,dps,fecha,estado,prioridad"/>    
+        <br/>
+        <h:panelGrid columns="2" cellpadding="8">
+
+            <p:outputLabel value="Srms "/>
+            <p:outputLabel id="Srms" value="#{consultarIncidenciaBean.inc.srms}"/>
+            
+            <p:outputLabel value="DPS"/>
+            <p:outputLabel id="dps" value="#{consultarIncidenciaBean.inc.dps}"/>
+ 
+            <p:outputLabel value="Fecha de Creacion"/>
+            <p:outputLabel id="fecha" value="#{consultarIncidenciaBean.inc.fechaRegistro}"/>
+            
+            <p:outputLabel value="Estado"/>
+            <p:outputLabel id="estado" value="#{consultarIncidenciaBean.inc.estado}"/>
+            
+            <p:outputLabel value="Descripcion"/>
+            <p:outputLabel id="prioridad" value="#{consultarIncidenciaBean.inc.descripcion}"/>    
+        </h:panelGrid>
+        
+        <br/>
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Descripcion "/>
+                <p:inputTextarea value="#{notasBean.nts.descripcion}" />
+            </p:panelGrid>
+                  <p:commandButton actionListener="#{notasBean.insertarnotas()}" value="Ingresar Notas" />
+        
+        
+  </h:form>
+
+        
+        
+        
+
+    </h:body>
+</html>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Direccion" table="direccion" catalog="scsv" optimistic-lock="version">
+        <id name="codDireccion" type="java.lang.Integer">
+            <column name="cod_direccion" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="distrito" class="modelo.Distrito" fetch="select">
+            <column name="cod_distrito" not-null="true" />
+        </many-to-one>
+        <property name="detalleDireccion" type="string">
+            <column name="detalle_direccion" length="100" not-null="true" />
+        </property>
+        <set name="sucursals" table="sucursal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_direccion" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Sucursal" />
+        </set>
+        <set name="empresas" table="empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_direccion" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Empresa" />
+        </set>
+        <set name="incidencias" table="incidencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_direccion" />
+            </key>
+            <one-to-many class="modelo.Incidencia" />
+        </set>
+        <set name="clienteNaturals" table="cliente_natural" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_direccion" not-null="true" />
+            </key>
+            <one-to-many class="modelo.ClienteNatural" />
+        </set>
+    </class>
+</hibernate-mapping>

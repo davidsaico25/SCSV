@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Equipo" table="equipo" catalog="scsv" optimistic-lock="version">
+        <id name="numeroSerie" type="string">
+            <column name="numero_serie" length="100" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="modelo" class="modelo.Modelo" fetch="select">
+            <column name="cod_modelo" not-null="true" />
+        </many-to-one>
+        <set name="equipoHasComponentes" table="equipo_has_componente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="numero_serie" length="100" not-null="true" />
+            </key>
+            <one-to-many class="modelo.EquipoHasComponente" />
+        </set>
+        <set name="incidencias" table="incidencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="numero_serie" length="100" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Incidencia" />
+        </set>
+        <set name="detalleFacturas" table="detalle_factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="numero_serie" length="100" not-null="true" />
+            </key>
+            <one-to-many class="modelo.DetalleFactura" />
+        </set>
+    </class>
+</hibernate-mapping>

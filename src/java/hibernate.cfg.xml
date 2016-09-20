@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/scsv?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="modelo/Parte.hbm.xml"/>
+    <mapping resource="modelo/Trabajador.hbm.xml"/>
+    <mapping resource="modelo/TrabajadorHasCertificado.hbm.xml"/>
+    <mapping resource="modelo/Garantia.hbm.xml"/>
+    <mapping resource="modelo/Estado.hbm.xml"/>
+    <mapping resource="modelo/Nota.hbm.xml"/>
+    <mapping resource="modelo/SlaIncidencia.hbm.xml"/>
+    <mapping resource="modelo/TipoIncidencia.hbm.xml"/>
+    <mapping resource="modelo/Direccion.hbm.xml"/>
+    <mapping resource="modelo/ClienteNatural.hbm.xml"/>
+    <mapping resource="modelo/Marca.hbm.xml"/>
+    <mapping resource="modelo/Factura.hbm.xml"/>
+    <mapping resource="modelo/Sucursal.hbm.xml"/>
+    <mapping resource="modelo/EquipoHasComponente.hbm.xml"/>
+    <mapping resource="modelo/Perfil.hbm.xml"/>
+    <mapping resource="modelo/Departamento.hbm.xml"/>
+    <mapping resource="modelo/IncidenciaHasEstado.hbm.xml"/>
+    <mapping resource="modelo/ParteDevuelta.hbm.xml"/>
+    <mapping resource="modelo/ParteEnviada.hbm.xml"/>
+    <mapping resource="modelo/Componente.hbm.xml"/>
+    <mapping resource="modelo/DetalleFactura.hbm.xml"/>
+    <mapping resource="modelo/Certificado.hbm.xml"/>
+    <mapping resource="modelo/Distrito.hbm.xml"/>
+    <mapping resource="modelo/Modulo.hbm.xml"/>
+    <mapping resource="modelo/Incidencia.hbm.xml"/>
+    <mapping resource="modelo/Equipo.hbm.xml"/>
+    <mapping resource="modelo/Empresa.hbm.xml"/>
+    <mapping resource="modelo/Usuario.hbm.xml"/>
+    <mapping resource="modelo/UsuarioHasModulo.hbm.xml"/>
+    <mapping resource="modelo/GrDevolucion.hbm.xml"/>
+    <mapping resource="modelo/GrEnvio.hbm.xml"/>
+    <mapping resource="modelo/Nrp.hbm.xml"/>
+    <mapping resource="modelo/Location.hbm.xml"/>
+    <mapping resource="modelo/Modelo.hbm.xml"/>
+    <mapping resource="modelo/Provincia.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

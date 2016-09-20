@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.ParteEnviada" table="parte_enviada" catalog="scsv" optimistic-lock="version">
+        <id name="codParteEnviada" type="java.lang.Integer">
+            <column name="cod_parte_enviada" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="incidencia" class="modelo.Incidencia" fetch="select">
+            <column name="cod_incidencia" not-null="true" />
+        </many-to-one>
+        <many-to-one name="parte" class="modelo.Parte" fetch="select">
+            <column name="cod_parte" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="string">
+            <column name="estado" length="45" not-null="true" />
+        </property>
+        <property name="dps" type="string">
+            <column name="dps" length="9" not-null="true" />
+        </property>
+        <property name="fechaEnvio" type="date">
+            <column name="fecha_envio" length="10" />
+        </property>
+        <set name="grEnvios" table="gr_envio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_parte_enviada" not-null="true" />
+            </key>
+            <one-to-many class="modelo.GrEnvio" />
+        </set>
+    </class>
+</hibernate-mapping>

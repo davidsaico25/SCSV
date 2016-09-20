@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 3:42:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.ClienteNatural" table="cliente_natural" catalog="scsv" optimistic-lock="version">
+        <id name="codClienteNatural" type="java.lang.Integer">
+            <column name="cod_cliente_natural" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="direccion" class="modelo.Direccion" fetch="select">
+            <column name="cod_direccion" not-null="true" />
+        </many-to-one>
+        <many-to-one name="location" class="modelo.Location" fetch="select">
+            <column name="cod_location" length="11" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
